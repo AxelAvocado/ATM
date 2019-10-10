@@ -10,6 +10,9 @@ namespace ATM
     {
         static void Main(string[] args)
         {
+            Airspace a = new Airspace();
+            TrackRendition T = new TrackRendition(a);
+            T.printTrack("Zabih", 5, 10, 600, 138, 200);
         }
     }
 }

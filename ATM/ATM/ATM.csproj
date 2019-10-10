@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Airspace.cs" />
+    <Compile Include="ATM_System.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrackRendition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
