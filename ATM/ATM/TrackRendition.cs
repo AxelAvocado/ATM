@@ -21,7 +21,7 @@ namespace ATM
             V = (V < 0) ? 0 : V;
             compasCourse = (compasCourse < 0 && compasCourse < 359) ? 0 : compasCourse;
 
-            Console.WriteLine(tag + ", (" + x + ", " + y + ", " + z + "), " + "V: " + V + ", Course: " + compasCourse);
+            Console.WriteLine(tag + ", (x: " + x + ", y: " + y + ", z: " + z + "), " + "V: " + V + ", Course: " + compasCourse);
         }
     }
 }
