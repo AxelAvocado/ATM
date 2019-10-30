@@ -5,7 +5,7 @@ using TransponderReceiver;
 
 namespace TransponderReceiverApplication
 {
-    class AirplaneData
+    public class AirplaneData
     {
         public string Tag { get; set; }
         public int X { get; set; }
@@ -21,7 +21,10 @@ namespace TransponderReceiverApplication
         public DateTime currentTime { get; set; }
 
 
+        public AirplaneData()
+        {
 
+        }
 
         public AirplaneData(string data)
         {
