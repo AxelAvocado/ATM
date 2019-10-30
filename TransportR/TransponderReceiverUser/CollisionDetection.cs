@@ -68,11 +68,10 @@ namespace TransponderReceiverUser
                     }
                     catch
                     {
-                    using (StreamWriter tw = File.AppendText(path))
-                    {
-                            //StreamWriter stream = File.CreateText(path);
+                        using (StreamWriter tw = File.AppendText(path))
+                        {
                             tw.WriteLine($"Collision Detection over");
-                    }
+                        }
                     }
                 }
         }
