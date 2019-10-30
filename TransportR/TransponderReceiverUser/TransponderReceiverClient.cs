@@ -10,20 +10,8 @@ namespace TransponderReceiverUser
     {
         private ITransponderReceiver receiver;
 
-        private AirplanesList AirplaneList = new AirplanesList();
-
-        public Boolean InAirSpace(int x, int y)
-        {
-            if (x > 90000 || x < 10000 || y > 90000 || y < 10000)
-            {
-                return false;
-
-            }
-            else
-            {
-                return true;
-            }
-        }
+        private AirplanesList AirplaneList_ = new AirplanesList();
+        private Airspace Airspace_ = new Airspace();
 
         // Using constructor injection for dependency/ies
         public TransponderReceiverClient(ITransponderReceiver receiver)
@@ -41,12 +29,12 @@ namespace TransponderReceiverUser
             foreach (var data in e.TransponderData)
             {
                 var Airplane = new AirplaneData(data);
-
-                if (InAirSpace(Airplane.X, Airplane.Y))
+                
+                if (Airspace_.InAirSpace(Airplane.X, Airplane.Y))
                 {
                     System.Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
 
-                    AirplaneList.AddToList(Airplane);
+                    AirplaneList_.AddToList(Airplane);
                 }
             }
         }
