@@ -22,27 +22,6 @@ namespace TransponderReceiverApplication
             Y = int.Parse(dataArray[2]);
             Z = int.Parse(dataArray[3]);
             Time = DateTime.ParseExact(dataArray[4], "yyyyMMddHHmmssfff", null);
-
         }
-
-
-
-        //public void UpdateAirplane(string newTag, int newX, int newY, int newZ, DateTime newTime)
-        //{
-        //    //Tag = currentTag;
-        //    //X = currentX;
-        //    //Y = currentY;
-        //    //Z = currentZ;
-        //    //Time = currentTime;
-
-        //    if (newTag == Tag)
-        //    {
-        //        currentX = newX;
-        //        currentY = newY;
-        //        currentZ = newZ;
-        //        currentTime = newTime;
-        //    }
-        //}
-
     }
 }

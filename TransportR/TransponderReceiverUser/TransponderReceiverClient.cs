@@ -10,7 +10,7 @@ namespace TransponderReceiverUser
     {
         private ITransponderReceiver receiver;
 
-        
+        private AirplanesList AirplaneList = new AirplanesList();
 
         public Boolean InAirSpace(int x, int y)
         {
@@ -37,25 +37,16 @@ namespace TransponderReceiverUser
 
         private void ReceiverOnTransponderDataReady(object sender, RawTransponderDataEventArgs e)
         {
-
-            var AirplaneList = new AirplanesList();
-
-            // AirplanesList instance
-            var AirplanesList = new TransponderReceiverUser.AirplanesList();
-
-
             // Just display data
             foreach (var data in e.TransponderData)
             {
-                
                 var Airplane = new AirplaneData(data);
-
 
                 if (InAirSpace(Airplane.X, Airplane.Y))
                 {
-                    //System.Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
+                    System.Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
 
-                    
+                    AirplaneList.AddToList(Airplane);
                 }
             }
         }
