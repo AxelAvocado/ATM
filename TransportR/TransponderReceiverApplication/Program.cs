@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TransponderReceiver;
-using TransponderReceiverUser;
 
 namespace TransponderReceiverApplication
 {
@@ -14,19 +12,21 @@ namespace TransponderReceiverApplication
     {
         static void Main(string[] args)
         {
+
+            // CalculateAirplaneData instance
+            var CAD = new TransponderReceiverUser.CalculateAirplaneData();
+
             // Using the real transponder data receiver
             var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
             // Dependency injection with the real TDR
             var system = new TransponderReceiverUser.TransponderReceiverClient(receiver);
 
-            //var log = new log(receiver);
-
-            //TrackLog.printData(receiver);
-
             // Let the real TDR execute in the background
             while (true)
+            {
                 Thread.Sleep(100);
+            }
         }
     }
 }

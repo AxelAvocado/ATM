@@ -12,7 +12,7 @@ namespace TransponderReceiverUser
     {
         private int DistY;
         private int DistX;
-        private int DistH;
+        private int DistH ;
         private long TimeDiff;
         private string path;
         
