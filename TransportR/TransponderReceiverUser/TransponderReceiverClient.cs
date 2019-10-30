@@ -40,6 +40,10 @@ namespace TransponderReceiverUser
 
             var AirplaneList = new AirplanesList();
 
+            // AirplanesList instance
+            var AirplanesList = new TransponderReceiverUser.AirplanesList();
+
+
             // Just display data
             foreach (var data in e.TransponderData)
             {
@@ -49,14 +53,9 @@ namespace TransponderReceiverUser
 
                 if (InAirSpace(Airplane.X, Airplane.Y))
                 {
-                    System.Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
+                    //System.Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
 
-                    AirplaneList.myList.Add(Airplane);
-                    AirplaneList.GetList();
-
-                    //Airplane.UpdateAirplane(Airplane.Tag, Airplane.X, Airplane.Y, Airplane.Z, Airplane.Time);
-
-
+                    
                 }
             }
         }
