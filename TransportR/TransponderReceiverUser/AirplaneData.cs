@@ -5,14 +5,14 @@ using TransponderReceiver;
 
 namespace TransponderReceiverApplication
 {
-    class AirplaneData
+    public class AirplaneData
     {
         public string Tag { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public int Z { get; set; }
         public DateTime Time { get; set; }
-        
+
         public AirplaneData(string data)
         {
             var dataArray = data.Split(';');
