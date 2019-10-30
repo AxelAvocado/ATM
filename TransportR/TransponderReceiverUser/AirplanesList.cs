@@ -7,7 +7,7 @@ using TransponderReceiverApplication;
 
 namespace TransponderReceiverUser
 {
-    class AirplanesList
+    public class AirplanesList
     {
         public List<AirplaneData> AirplaneDataList = new List<AirplaneData>();
 
