@@ -14,14 +14,13 @@ namespace TransponderReceiverApplication
     {
         static void Main(string[] args)
         {
+            var date1 = new DateTime(2008, 3, 1, 7, 0, 0);
             List<AirplaneData> airplane= new List<AirplaneData>();
-            airplane.Add(new AirplaneData{Tag = "fly1", X = 100, Y = 100, Z = 100, Time = DateTime.Now});
-            airplane.Add(new AirplaneData{Tag = "fly2", X = 101, Y = 101, Z = 101, Time = DateTime.Now});
-            airplane.Add(new AirplaneData{Tag = "fly3", X = 103, Y = 102, Z = 102, Time = DateTime.Now});
-            airplane.Add(new AirplaneData{Tag = "fly4", X = 104, Y = 103, Z = 103, Time = DateTime.Now });
-
-            //airplane.Add(new AirplaneData{Tag = "fly4", X = 6000, Y = 6000, Z = 1030, Time = DateTime.Now });
-
+            //airplane.Add(new AirplaneData{Tag = "fly1", X = 100, Y = 100, Z = 100, Time = DateTime.Now});
+            //airplane.Add(new AirplaneData{Tag = "fly2", X = 101, Y = 101, Z = 101, Time = DateTime.Now});
+            //airplane.Add(new AirplaneData{Tag = "fly3", X = 103, Y = 102, Z = 102, Time = DateTime.Now});
+            //airplane.Add(new AirplaneData{Tag = "fly4", X = 104, Y = 103, Z = 103, Time = DateTime.Now});
+            //airplane.Add(new AirplaneData{Tag = "fly4", X = 6000, Y = 6000, Z = 1030, Time = DateTime.Now});
 
             CollisionDetection c = new CollisionDetection(airplane);
 
