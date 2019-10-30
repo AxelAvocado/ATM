@@ -20,7 +20,7 @@ namespace TransponderReceiverApplication
             airplane.Add(new AirplaneData{Tag = "fly3", X = 103, Y = 102, Z = 102, Time = DateTime.Now});
             airplane.Add(new AirplaneData{Tag = "fly4", X = 104, Y = 103, Z = 103, Time = DateTime.Now });
 
-            airplane.Add(new AirplaneData{Tag = "fly4", X = 6000, Y = 6000, Z = 1030, Time = DateTime.Now });
+            //airplane.Add(new AirplaneData{Tag = "fly4", X = 6000, Y = 6000, Z = 1030, Time = DateTime.Now });
 
 
             CollisionDetection c = new CollisionDetection(airplane);

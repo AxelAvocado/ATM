@@ -44,24 +44,25 @@ namespace TransponderReceiverUser
 
             }
             AirplaneData[] TRF = r.ToArray();
-
-                for (int j = 0; j < TRF.Length; j++)
+            for (int j = 0; j < TRF.Length; j++)
+            {
+                for (int i = j; i < TRF.Length; i++)
                 {
                     try
                     {
-                        TimeDiff = (long) ((TimeSpan) (TRF[j].Time - TRF[j + 1].Time)).TotalSeconds;
-                        DistH = TRF[j].Z - TRF[j + 1].Z;
-                        DistY = TRF[j].Y - TRF[j + 1].Y;
-                        DistX = TRF[j].X - TRF[j + 1].X;
+                        TimeDiff = (long)((TimeSpan)(TRF[j].Time - TRF[i].Time)).TotalSeconds;
+                        DistH = TRF[j].Z - TRF[i].Z;
+                        DistY = TRF[j].Y - TRF[i].Y;
+                        DistX = TRF[j].X - TRF[i].X;
 
                         if ((-300 < DistH && DistH < 300) && (-120 < TimeDiff && TimeDiff < 120))
                         {
-                            if (TRF[j].Tag != TRF[j + 1].Tag && (-5000 < DistX && DistX < 5000) &&
+                            if (TRF[j].Tag != TRF[i].Tag && (-5000 < DistX && DistX < 5000) &&
                                 (-5000 < DistY && DistY < 5000))
                             {
                                 using (StreamWriter tw = File.AppendText(path))
                                 {
-                                    tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[j + 1].Tag} is going to crash");
+                                    tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                                 }
                             }
                         }
@@ -70,10 +71,13 @@ namespace TransponderReceiverUser
                     {
                         using (StreamWriter tw = File.AppendText(path))
                         {
-                            tw.WriteLine($"Collision Detection over");
+                            tw.WriteLine($"Detection is over");
                         }
                     }
                 }
+
+            }
+                
         }
     }
 }
