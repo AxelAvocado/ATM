@@ -9,25 +9,37 @@ namespace TransponderReceiverUser
 {
     public class CalculateAirplaneData
     {
+        public CalculateAirplaneData(ITransponderReceiverClient transponderReceiverClient)
+        {
+            transponderReceiverClient.AirplaneListReady += UpdatePlaneData;
+            Airplanes = new List<AirplaneData>();
+            AirplanesUpdated = new List<AirplaneData>();
+        }
+
         public List<AirplaneData> Airplanes { get; set; }
         public List<AirplaneData> AirplanesUpdated { get; set; }
 
-        public List<AirplaneData> UpdatePlaneData(List<AirplaneData> Airplanes, List<AirplaneData> AirplanesUpdated)
-        {
+        public void UpdatePlaneData(object sender, AirplanesList e)
+        { 
+            Airplanes = new List<AirplaneData>(AirplanesUpdated);
+            AirplanesUpdated = new List<AirplaneData>(e.AirplaneDataList);
+
             foreach (var AirplaneUpdated in AirplanesUpdated)
             {
-                var AirplaneResult =
-                    from AP in Airplanes
-                    where AP.Tag == AirplaneUpdated.Tag
-                    select AP;
-
-                Console.WriteLine($"Transponderdata {AirplaneUpdated.Tag}");
+                foreach (var Airplane in Airplanes)
+                {
+                    if (Airplane.Tag == AirplaneUpdated.Tag)
+                    {
+                        AirplaneUpdated.Speed = CalculateSpeed(Airplane, AirplaneUpdated);
+                        AirplaneUpdated.Direction = CalculateDirection(Airplane, AirplaneUpdated);
+                        Console.WriteLine($"{Airplane.X} og {AirplaneUpdated.X}");
+                        Console.WriteLine($"Calculated new data for {AirplaneUpdated.Tag}: Speed = {AirplaneUpdated.Speed} km/t, Direction = {AirplaneUpdated.Direction} degrees");
+                    }
+                }
             };
-
-            return AirplanesUpdated;
         }
 
-        public void CalculateSpeed(AirplaneData Airplane, AirplaneData AirplaneUpdated)
+        public double CalculateSpeed(AirplaneData Airplane, AirplaneData AirplaneUpdated)
         {
             double speed = 0.0;
 
@@ -47,10 +59,11 @@ namespace TransponderReceiverUser
             var timeElapsed = AirplaneUpdated.Time - Airplane.Time;
 
             // Kilometers pr. hour
-            speed = (dist / (double) timeElapsed.TotalSeconds) * 3.6;        
+            speed = (dist / (double) timeElapsed.TotalSeconds) * 3.6;
+            return speed;
         }
 
-        public void CalculateDirection(AirplaneData Airplane, AirplaneData AirplaneUpdated)
+        public double CalculateDirection(AirplaneData Airplane, AirplaneData AirplaneUpdated)
         {
             double direction = 0.0;
 
@@ -63,6 +76,7 @@ namespace TransponderReceiverUser
             if (x2 == x1 && y2 == y1)
             {
                 direction = double.NaN;
+                return direction;
             }
             else
             {
@@ -72,10 +86,12 @@ namespace TransponderReceiverUser
                 if (temp > 0)
                 {
                     direction = 360 - temp;
+                    return direction;
                 }
                 else
                 {
                     direction = Math.Abs(temp);
+                    return direction;
                 }
             }
         }

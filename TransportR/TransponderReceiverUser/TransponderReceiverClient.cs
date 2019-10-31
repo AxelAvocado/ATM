@@ -6,11 +6,16 @@ using TransponderReceiverApplication;
 
 namespace TransponderReceiverUser
 {
-    public class TransponderReceiverClient
+    public interface ITransponderReceiverClient
+    {
+        event EventHandler<AirplanesList> AirplaneListReady;
+    }
+    public class TransponderReceiverClient : ITransponderReceiverClient
     {
         private ITransponderReceiver receiver;
+        public AirplanesList AirplaneList = new AirplanesList();
 
-        private AirplanesList AirplaneList = new AirplanesList();
+        public event EventHandler<AirplanesList> AirplaneListReady;
 
         public Boolean InAirSpace(int x, int y)
         {
@@ -43,12 +48,21 @@ namespace TransponderReceiverUser
                 var Airplane = new AirplaneData(data);
 
                 if (InAirSpace(Airplane.X, Airplane.Y))
-                {
-                    System.Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
+                { 
+                    Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
 
                     AirplaneList.AddToList(Airplane);
+
                 }
             }
+
+            OnUpdateChangedEvent(AirplaneList);
         }
+
+        protected virtual void OnUpdateChangedEvent(AirplanesList e)
+        {
+            AirplaneListReady?.Invoke(this, e);
+        }
+
     }
 }

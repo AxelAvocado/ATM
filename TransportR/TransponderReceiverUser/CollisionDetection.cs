@@ -15,13 +15,18 @@ namespace TransponderReceiverUser
         private int DistH ;
         private long TimeDiff;
         private string path;
+
+        public CollisionDetection()
+        {
+
+        }
         
         private List<AirplaneData> transponderReceiverFactories;
-        public CollisionDetection(List<AirplaneData> r)
+        public void DetectCollision(List<AirplaneData> r)
         {
             transponderReceiverFactories = r;
             //get the desktop path
-            path = "c:\\Users\\zabih\\Desktop\\Detection.txt";
+            path = "C:/Users/Abdallah Ajjawi/Desktop/detection.txt";
             CalcDist(transponderReceiverFactories);
         }
 
@@ -39,7 +44,7 @@ namespace TransponderReceiverUser
             {
                 using (StreamWriter tw = File.AppendText(path))
                 {
-                    tw.WriteLine("Starting New Collision Detection");
+                    //tw.WriteLine("Starting New Collision Detection");
                 }
 
             }
@@ -64,6 +69,8 @@ namespace TransponderReceiverUser
                                 {
                                     tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                                 }
+
+                                Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                             }
                         }
                     }

@@ -12,6 +12,8 @@ namespace TransponderReceiverApplication
         public int Y { get; set; }
         public int Z { get; set; }
         public DateTime Time { get; set; }
+        public Double Speed { get; set; }
+        public Double Direction { get; set; }
 
         public AirplaneData(string data)
         {
