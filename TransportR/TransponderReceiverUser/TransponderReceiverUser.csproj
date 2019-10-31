@@ -47,8 +47,10 @@
     <Compile Include="AirplaneData.cs" />
     <Compile Include="AirplanesList.cs" />
     <Compile Include="Airspace.cs" />
+    <Compile Include="CalculateAirplaneData.cs" />
     <Compile Include="CollisionDetection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrackRendition.cs" />
     <Compile Include="TransponderReceiverClient.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
