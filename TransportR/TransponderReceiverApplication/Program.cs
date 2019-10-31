@@ -20,9 +20,11 @@ namespace TransponderReceiverApplication
             var system = new TransponderReceiverClient(receiver);
 
             // CalculateAirplaneData Instance
-            //var CAD = new CalculateAirplaneData(system);
+            var CAD = new CalculateAirplaneData(system);
 
             var CD = new CollisionDetection(system);
+
+            var TR = new TrackRendition(CAD);
 
             // Let the real TDR execute in the background
             while (true)

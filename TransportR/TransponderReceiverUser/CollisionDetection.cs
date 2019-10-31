@@ -19,8 +19,9 @@ namespace TransponderReceiverUser
         public CollisionDetection(ITransponderReceiverClient transponderReceiverClient)
         {
             transponderReceiverClient.AirplaneListReady += CalcDist;
-            path = "C:/Users/zabih/Desktop/detection.txt";
-            transponderReceiverFactories=new List<AirplaneData>();
+            //path = "C:/Users/Sakariye/Skrivebord/detection.txt"; 
+            path = "C:/Users/Bruger/Desktop/detection.txt";
+             transponderReceiverFactories =new List<AirplaneData>();
         }
         
         public List<AirplaneData> transponderReceiverFactories { get; set; }

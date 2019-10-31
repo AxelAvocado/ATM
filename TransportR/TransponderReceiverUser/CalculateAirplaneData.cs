@@ -7,8 +7,17 @@ using TransponderReceiverApplication;
 
 namespace TransponderReceiverUser
 {
-    public class CalculateAirplaneData
+    public interface ICalculateAirplaneData
     {
+        event EventHandler<AirplaneData> UpdatedAirplaneListReady;
+    }
+    public class CalculateAirplaneData : ICalculateAirplaneData
+    {
+        public event EventHandler<AirplaneData> UpdatedAirplaneListReady;
+        protected virtual void OnAirplaneListUpdatedEvent(AirplaneData e )
+        {
+            UpdatedAirplaneListReady?.Invoke(this, e);
+        }
         public CalculateAirplaneData(ITransponderReceiverClient transponderReceiverClient)
         {
             transponderReceiverClient.AirplaneListReady += UpdatePlaneData;
@@ -20,7 +29,7 @@ namespace TransponderReceiverUser
         public List<AirplaneData> AirplanesUpdated { get; set; }
 
         public void UpdatePlaneData(object sender, AirplanesList e)
-        { 
+        {
             Airplanes = new List<AirplaneData>(AirplanesUpdated);
             AirplanesUpdated = new List<AirplaneData>(e.AirplaneDataList);
 
@@ -32,8 +41,9 @@ namespace TransponderReceiverUser
                     {
                         AirplaneUpdated.Speed = CalculateSpeed(Airplane, AirplaneUpdated);
                         AirplaneUpdated.Direction = CalculateDirection(Airplane, AirplaneUpdated);
-                        Console.WriteLine($"{Airplane.X} og {AirplaneUpdated.X}");
-                        Console.WriteLine($"Calculated new data for {AirplaneUpdated.Tag}: Speed = {AirplaneUpdated.Speed} km/t, Direction = {AirplaneUpdated.Direction} degrees");
+                        OnAirplaneListUpdatedEvent(AirplaneUpdated);
+                        //Console.WriteLine($"{Airplane.X} og {AirplaneUpdated.X}");
+                        //Console.WriteLine($"Calculated new data for {AirplaneUpdated.Tag}: Speed = {AirplaneUpdated.Speed} km/t, Direction = {AirplaneUpdated.Direction} degrees");
                     }
                 }
             };

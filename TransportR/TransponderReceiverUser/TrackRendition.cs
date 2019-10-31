@@ -7,19 +7,15 @@ using TransponderReceiverApplication;
 
 namespace TransponderReceiverUser
 {
-    class TrackRendition
+    public class TrackRendition
     {
-       
-        //public void PrintPlanes(List<AirplaneData> Planes)
-        //{
-        //    CalculateAirplaneData Planelist = new CalculateAirplaneData();
-        //    Planes = Planelist.AirplanesUpdated;
-
-
-        //    foreach (var item in Planes)
-        //    {
-        //        Console.WriteLine(item);
-        //    }
-        //}
+        public TrackRendition(ICalculateAirplaneData CalculateAirplaneData)
+        {
+            CalculateAirplaneData.UpdatedAirplaneListReady += PrintPlanes;
+        }
+        private void PrintPlanes(object sender, AirplaneData e)
+        {
+            Console.WriteLine($"Calculated new data for {e.Tag}: Speed = {e.Speed} km/t, Direction = {e.Direction} degrees");
+        }
     }
 }
