@@ -12,58 +12,90 @@ namespace TransponderReceiverUser
     {
         private int DistY;
         private int DistX;
-        private int DistH;
-        private int TimeDiff;
+        private int DistH ;
+        private long TimeDiff;
         private string path;
-        //public delegate void Seperation(TransponderReceiverFactory p1, TransponderReceiverFactory p2);
 
-        private List<AirplaneData> transponderReceiverFactories;
-        public CollisionDetection(List<AirplaneData> r)
+        public CollisionDetection(ITransponderReceiverClient transponderReceiverClient)
         {
-            transponderReceiverFactories = r;
-            //Create the file
-            path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            CalcDist(transponderReceiverFactories);
+            transponderReceiverClient.AirplaneListReady += CalcDist;
+            path = "C:/Users/zabih/Desktop/detection.txt";
+            transponderReceiverFactories=new List<AirplaneData>();
         }
+        
+        public List<AirplaneData> transponderReceiverFactories { get; set; }
+        //public void DetectCollision(List<AirplaneData> r)
+        //{
+        //    transponderReceiverFactories = r;
+        //    //get the desktop path
+        //    path = "C:/Users/Abdallah Ajjawi/Desktop/detection.txt";
+        //    CalcDist(transponderReceiverFactories);
+        //}
 
-        public void CalcDist(List<AirplaneData> r)
+        public void CalcDist(object sender, AirplanesList e)
         {
-            TextWriter tw = new StreamWriter(path);
+            transponderReceiverFactories = e.AirplaneDataList;
+
+            foreach(var t in transponderReceiverFactories)
+            {
+                Console.WriteLine($"{t.Tag}");
+            }
+
             //Først tjek hvis filen eksisterer hvis den ikke eksisterer så opret
             if (!File.Exists(path))
             {
-                File.Create(path);
-                tw.WriteLine("Collision Detection");
-            }
-            else
-            {
-                using (var tw1 = new StreamWriter(path, true))
+                using (StreamWriter tw = new StreamWriter(path))
                 {
-                    tw1.WriteLine("Starting Collision Detection");
+                    tw.WriteLine("Collision Detection File");
                 }
             }
-            AirplaneData[] TRF = r.ToArray();
-
-            for (int i = 0; i < TRF.Length; i++)
+            else if(File.Exists(path))
             {
-                for (int j = 0; j < TRF.Length; j++)
+                using (StreamWriter tw = File.AppendText(path))
                 {
-                    TimeDiff = int.Parse(TRF[j].Time.ToString()) - int.Parse(TRF[i].Time.ToString());
-                    DistH = TRF[j].Z - TRF[i].Z;
-                    DistY = TRF[j].Y - TRF[i].Y;
-                    DistX = TRF[j].X - TRF[i].X;
+                    //tw.WriteLine("Starting New Collision Detection");
+                }
 
-                    if ((-300 < DistH && DistH < 300) && TimeDiff == 0)
+            }
+
+            AirplaneData[] TRF = transponderReceiverFactories.ToArray();
+            for (int j = 0; j < TRF.Length; j++)
+            {
+                for (int i = j; i < TRF.Length; i++)
+                {
+                    try
                     {
-                        if (TRF[j].Tag != TRF[i].Tag && (-5000 < DistX && DistX < 5000) && (-5000 < DistY && DistY < 5000))
+                        TimeDiff = (long)((TimeSpan)(TRF[j].Time - TRF[i].Time)).TotalSeconds;
+                        DistH = TRF[j].Z - TRF[i].Z;
+                        DistY = TRF[j].Y - TRF[i].Y;
+                        DistX = TRF[j].X - TRF[i].X;
+                        //Console.WriteLine($"højde forskellen mellem flyene er {TRF[i].Z} og {TRF[j].Z} er {DistH} {TRF[i].Tag} og {TRF[j].Tag}");
+                        if ((-1000 < DistH && DistH < 1000) && (-120 < TimeDiff && TimeDiff < 120))
                         {
+                            //Console.WriteLine($"{TRF[i].X} og {TRF[j].X} distance er {DistX} på {TRF[i].Tag} og {TRF[j].Tag}");
+                            if (TRF[j].Tag != TRF[i].Tag && (-10000 < DistX && DistX < 10000) && (-10000 < DistY && DistY < 10000))
+                            {
+                                Console.WriteLine("vi når aldrig her");
+                                using (StreamWriter tw = File.AppendText(path))
+                                {
+                                    tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
+                                }
 
-                            //StreamWriter stream = File.CreateText(path);
-                            tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag}");
+                                Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        using (StreamWriter tw = File.AppendText(path))
+                        {
+                            tw.WriteLine($"Detection is over");
                         }
                     }
                 }
+
             }
+
         }
     }
 }

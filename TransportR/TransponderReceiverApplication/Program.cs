@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TransponderReceiver;
+using TransponderReceiverUser;
 
 namespace TransponderReceiverApplication
 {
@@ -16,15 +17,18 @@ namespace TransponderReceiverApplication
             var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
             // Dependency injection with the real TDR
-            var system = new TransponderReceiverUser.TransponderReceiverClient(receiver);
+            var system = new TransponderReceiverClient(receiver);
 
-            //var log = new log(receiver);
+            // CalculateAirplaneData Instance
+            //var CAD = new CalculateAirplaneData(system);
 
-            //TrackLog.printData(receiver);
+            var CD = new CollisionDetection(system);
 
             // Let the real TDR execute in the background
             while (true)
-                Thread.Sleep(1000);
+            {
+                Thread.Sleep(100);
+            }
         }
     }
 }

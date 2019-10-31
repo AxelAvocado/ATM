@@ -7,14 +7,27 @@ using TransponderReceiverApplication;
 
 namespace TransponderReceiverUser
 {
-    class AirplanesList
+    public class AirplanesList : EventArgs
     {
-        public List<AirplaneData> myList = new List<AirplaneData>();
+        public List<AirplaneData> AirplaneDataList = new List<AirplaneData>();
+
+        public void AddToList(AirplaneData AirplaneObj)
+        {
+            foreach (var ARDL in AirplaneDataList)
+            {
+                if (ARDL.Tag == AirplaneObj.Tag)
+                {
+                    AirplaneDataList.Remove(ARDL);
+                    break;
+                }
+            }
+
+            AirplaneDataList.Add(AirplaneObj);
+        }
 
         public List<AirplaneData> GetList()
         {
-            return myList;
+            return AirplaneDataList;
         }
-
     }
 }
