@@ -48,7 +48,7 @@ namespace TransponderReceiverUser
                 var Airplane = new AirplaneData(data);
 
                 if (InAirSpace(Airplane.X, Airplane.Y))
-                { 
+                {
                     Console.WriteLine($"Transponderdata {Airplane.Tag} {Airplane.Time}");
 
                     AirplaneList.AddToList(Airplane);
