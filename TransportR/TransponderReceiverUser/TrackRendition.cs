@@ -10,16 +10,16 @@ namespace TransponderReceiverUser
     class TrackRendition
     {
        
-        public void PrintPlanes(List<AirplaneData> Planes)
-        {
-            CalculateAirplaneData Planelist = new CalculateAirplaneData();
-            Planes = Planelist.AirplanesUpdated;
+        //public void PrintPlanes(List<AirplaneData> Planes)
+        //{
+        //    CalculateAirplaneData Planelist = new CalculateAirplaneData();
+        //    Planes = Planelist.AirplanesUpdated;
 
 
-            foreach (var item in Planes)
-            {
-                Console.WriteLine(item);
-            }
-        }
+        //    foreach (var item in Planes)
+        //    {
+        //        Console.WriteLine(item);
+        //    }
+        //}
     }
 }
