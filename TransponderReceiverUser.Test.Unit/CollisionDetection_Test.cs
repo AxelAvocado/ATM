@@ -15,7 +15,7 @@ namespace TransponderReceiverUser.Test.Unit
         private CollisionDetection UUT;
 
         [SetUp]
-        public void setup()
+        public void Setup()
         {
             Transponder = Substitute.For<ITransponderReceiverClient>();
             UUT = new CollisionDetection(Transponder);
@@ -23,7 +23,7 @@ namespace TransponderReceiverUser.Test.Unit
 
         [Test]
         ////test af collision detection med airplanelist object som ikke fuldfører programmet på grund af tidsforskel
-        public void calcDistObjectTime_test()
+        public void CalcDistObjectTime_test()
         {
             List<AirplaneData> airList = new List<AirplaneData>();
             AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221909363");
@@ -37,7 +37,7 @@ namespace TransponderReceiverUser.Test.Unit
 
         //test af collision detection med airplanelist object som fuldfører programmet
         [Test]
-        public void calcDistObjectTrue_test()
+        public void CalcDistObjectTrue_test()
         {
             List<AirplaneData> airList = new List<AirplaneData>();
             AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
