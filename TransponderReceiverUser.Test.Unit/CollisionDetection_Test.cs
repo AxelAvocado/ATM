@@ -35,7 +35,7 @@ namespace TransponderReceiverUser.Test.Unit
             Assert.That(UUT.TimeDiff, Is.EqualTo(60));
         }
         [Test]
-        ////test af collision detection med airplanelist object som ikke fuldfører programmet på grund af Y koordinat
+        ////test af collision detection med airplanelist object som ikke fuldfører programmet på grund af Y koordinat.
         public void CalcDistObjectY_test()
         {
             List<AirplaneData> airList = new List<AirplaneData>();
