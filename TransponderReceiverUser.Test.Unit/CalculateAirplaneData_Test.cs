@@ -73,17 +73,17 @@ namespace TransponderReceiverUser.Test.Unit
 
             // Setup test data
             AirplanesList apl = new AirplanesList();
-            AirplaneData apUpdated= new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
-            AirplaneData ap = new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
+            AirplaneData plane = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
+            AirplaneData planeUpdated = new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
 
-            apl.AirplaneDataList.Add(apUpdated);
-            _uut.Airplanes.Add(ap);
+            apl.AirplaneDataList.Add(planeUpdated);
+            _uut.AirplanesUpdated.Add(plane);
 
             // Act: Raise event med liste apl
             _fakeTransponderReceiverClient.AirplaneListReady += Raise.EventWith(apl);
 
             // Assert at opbjektet modtaget er lig objektet som vi raiser med
-            Assert.That(_uut.AirplanesUpdated.ElementAt(0).Speed, Is.EqualTo(180));
+            Assert.That(_receivedEventArgs.Speed, Is.EqualTo(180));
         }
 
         // Test: Beregning af hastighed
