@@ -52,13 +52,12 @@ namespace TransponderReceiverUser
             {
                 for (int i = j; i < TRF.Length; i++)
                 {
-                    
-                    
+                    if (TRF[j].Tag != TRF[i].Tag)
+                    {
                         TimeDiff = (long)((TimeSpan)(TRF[j].Time - TRF[i].Time)).TotalSeconds;
                         DistH = TRF[j].Z - TRF[i].Z;
                         DistY = TRF[j].Y - TRF[i].Y;
                         DistX = TRF[j].X - TRF[i].X;
-                        Console.WriteLine($"X forskellen mellem flyene er {TRF[i].X} og {TRF[j].X} er {DistX} {TRF[i].Tag} og {TRF[j].Tag}");
                         if ((-300 < DistH && DistH < 300) && (-120 < TimeDiff && TimeDiff < 120))
                         {
                             //Console.WriteLine($"{TRF[i].X} og {TRF[j].X} distance er {DistX} på {TRF[i].Tag} og {TRF[j].Tag}");
@@ -72,7 +71,7 @@ namespace TransponderReceiverUser
 
                             }
                         }
-                    
+                    }                     
                     
                 }
 
