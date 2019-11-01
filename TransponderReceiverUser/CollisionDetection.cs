@@ -52,8 +52,8 @@ namespace TransponderReceiverUser
             {
                 for (int i = j; i < TRF.Length; i++)
                 {
-                    try
-                    {
+                    
+                    
                         TimeDiff = (long)((TimeSpan)(TRF[j].Time - TRF[i].Time)).TotalSeconds;
                         DistH = TRF[j].Z - TRF[i].Z;
                         DistY = TRF[j].Y - TRF[i].Y;
@@ -72,14 +72,8 @@ namespace TransponderReceiverUser
                                 Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                             }
                         }
-                    }
-                    catch
-                    {
-                        using (StreamWriter tw = File.AppendText(path))
-                        {
-                            tw.WriteLine($"Detection is over");
-                        }
-                    }
+                    
+                    
                 }
 
             }
