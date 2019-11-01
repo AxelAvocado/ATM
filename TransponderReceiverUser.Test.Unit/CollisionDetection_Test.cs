@@ -22,11 +22,26 @@ namespace TransponderReceiverUser.Test.Unit
         }
         //test af collision detection
         [Test]
-        public void calcDist_test()
+        public void calcDistx_test()
         {
             transponder.AirplaneListReady +=Raise.EventWith(new AirplanesList {});
             Assert.That(UUT.DistX, Is.EqualTo(0));
         }
+
+        [Test]
+        public void calcDisty_test()
+        {
+            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { });
+            Assert.That(UUT.DistY, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void calcDistH_test()
+        {
+            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { });
+            Assert.That(UUT.DistH, Is.EqualTo(0));
+        }
+
 
     }
 }
