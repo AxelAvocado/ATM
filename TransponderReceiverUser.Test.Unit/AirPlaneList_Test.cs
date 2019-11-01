@@ -21,7 +21,7 @@ namespace TransponderReceiverUser.Test.Unit
 
         //tester AddToList fra AirPlaneList med at give den input parameter og se hvorvidt det er blevet indsat 
 
-        [Test]
+        //[Test]
         //public void AddToListTest()
         //{
         //    AirplaneData IairPlaneData = Substitute.For<AirplaneData>();
