@@ -64,12 +64,12 @@ namespace TransponderReceiverUser
                             //Console.WriteLine($"{TRF[i].X} og {TRF[j].X} distance er {DistX} på {TRF[i].Tag} og {TRF[j].Tag}");
                             if (TRF[j].Tag != TRF[i].Tag && (-5000 < DistX && DistX < 5000) && (-5000 < DistY && DistY < 5000))
                             {
+                                Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                                 using (StreamWriter tw = File.AppendText(path))
                                 {
                                     tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                                 }
 
-                                Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                             }
                         }
                     
