@@ -10,6 +10,8 @@ namespace TransponderReceiverUser.Test.Unit
     {
         private ITransponderReceiver _fakeTransponderReceiver;
         private TransponderReceiverClient _uut;
+        private AirplanesList _receivedEventArgs;
+
         [SetUp]
         public void Setup()
         {
@@ -17,6 +19,13 @@ namespace TransponderReceiverUser.Test.Unit
             _fakeTransponderReceiver = Substitute.For<ITransponderReceiver>();
             // Inject the fake TDR
             _uut = new TransponderReceiverClient(_fakeTransponderReceiver);
+
+            _receivedEventArgs = null;
+            _uut.AirplaneListReady +=
+                (o, args) =>
+                {
+                    _receivedEventArgs = args;
+                };
         }
 
         [Test]
@@ -35,6 +44,7 @@ namespace TransponderReceiverUser.Test.Unit
                 += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
 
             // Assert something here or use an NSubstitute Received
+            Assert.That(_receivedEventArgs, Is.Not.Null);
         }
 
         // Test: Tjek at tilføjet Airplane er InAirSpace

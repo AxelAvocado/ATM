@@ -13,25 +13,77 @@ namespace TransponderReceiverUser.Test.Unit
     {
         private ITransponderReceiverClient _fakeTransponderReceiverClient;
         private CalculateAirplaneData _uut;
+        private AirplaneData _receivedEventArgs;
 
         [SetUp]
         public void Setup()
         {
+            _receivedEventArgs = null;
             _fakeTransponderReceiverClient = Substitute.For<ITransponderReceiverClient>();
             _uut = new CalculateAirplaneData(_fakeTransponderReceiverClient);
+
+            _uut.UpdatedAirplaneListReady +=
+                (o, args) =>
+                {
+                    _receivedEventArgs = args;
+                };
         }
 
-        // Test: Opdatering af planedata med sammenligning af to lister
+        // Test: Raise event
+
+        [Test]
+        public void UpdatedList_EventFired()
+        {
+            // Setup test data
+            AirplanesList apl = new AirplanesList();
+
+            AirplaneData ap = new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
+            AirplaneData apUpdated = new AirplaneData("QUA537;21500;20000;20000;20191027221819363");
+
+            _uut.Airplanes.Add(ap);
+            apl.AirplaneDataList.Add(apUpdated);
+
+            _uut.UpdatePlaneData(new object {}, apl);
+
+            Assert.That(_receivedEventArgs, Is.Not.Null);
+        }
+
+        // Test: Modtagelse af event
         [Test]
         public void UpdatePlaneDataEventRecepientTest()
         {
+
+            // Setup test data
             AirplanesList apl = new AirplanesList();
             AirplaneData ap = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
 
             apl.AirplaneDataList.Add(ap);
 
+            // Act: Raise event med liste apl
             _fakeTransponderReceiverClient.AirplaneListReady += Raise.EventWith(apl);
+
+            // Assert at opbjektet modtaget er lig objektet som vi raiser med
             Assert.That(_uut.AirplanesUpdated.ElementAt(0).Tag, Is.EqualTo("QUA537"));
+        }
+
+        // Test: Sammenligning af to fly ved modtagelse af event
+        [Test]
+        public void UpdatePlaneDataEventRecepientCompareTest()
+        {
+
+            // Setup test data
+            AirplanesList apl = new AirplanesList();
+            AirplaneData apUpdated= new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
+            AirplaneData ap = new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
+
+            apl.AirplaneDataList.Add(apUpdated);
+            _uut.Airplanes.Add(ap);
+
+            // Act: Raise event med liste apl
+            _fakeTransponderReceiverClient.AirplaneListReady += Raise.EventWith(apl);
+
+            // Assert at opbjektet modtaget er lig objektet som vi raiser med
+            Assert.That(_uut.AirplanesUpdated.ElementAt(0).Speed, Is.EqualTo(180));
         }
 
         // Test: Beregning af hastighed
