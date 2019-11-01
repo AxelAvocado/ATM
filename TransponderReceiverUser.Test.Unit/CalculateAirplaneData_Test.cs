@@ -9,7 +9,7 @@ using TransponderReceiverApplication;
 
 namespace TransponderReceiverUser.Test.Unit
 {
-    class CalculateAirplaneData_Test
+    public class CalculateAirplaneData_Test
     {
         private ITransponderReceiverClient _fakeTransponderReceiverClient;
         private CalculateAirplaneData _uut;
@@ -34,6 +34,28 @@ namespace TransponderReceiverUser.Test.Unit
 
             // Act: Beregner hastighed mellem to logs af samme fly
             double result = _uut.CalculateSpeed(plane, planeUpdated);
+
+            // Assert at resultatet er lig 30 km/t
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        // Test: Beregning af retning
+        [TestCase("QUA537;20000;20000;20000;20191027221809363",
+                  "QUA537;20000;20000;20000;20191027221809363",
+                  double.NaN)]
+        [TestCase("QUA537;20000;20000;20000;20191027221809363",
+                  "QUA537;20500;20500;20000;20191027221809363",
+                  315.00)]
+        public void CalculateDirectionTest(string planeString, string planeUpdatedString, double directionExpected)
+        {
+            // Setup test data
+
+            AirplaneData plane = new AirplaneData(planeString);
+            AirplaneData planeUpdated = new AirplaneData(planeUpdatedString);
+            double expectedResult = directionExpected;
+
+            // Act: Beregner hastighed mellem to logs af samme fly
+            double result = _uut.CalculateDirection(plane, planeUpdated);
 
             // Assert at resultatet er lig 30 km/t
             Assert.That(result, Is.EqualTo(expectedResult));

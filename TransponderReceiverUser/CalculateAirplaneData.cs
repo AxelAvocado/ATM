@@ -88,19 +88,17 @@ namespace TransponderReceiverUser
             }
             else
             {
-                var x = (Math.Atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
-                var temp = Math.Round(x - 90, 2);
+                var Theta = Math.Atan2(y1 - y2, x1 - x2);
+                Theta += Math.PI / 2;
 
-                if (temp > 0)
+                direction = Theta * (180 / Math.PI);
+
+                if (direction < 0)
                 {
-                    direction = 360 - temp;
-                    return direction;
+                    direction += 360;
                 }
-                else
-                {
-                    direction = Math.Abs(temp);
-                    return direction;
-                }
+
+                return direction;
             }
         }
 
