@@ -22,10 +22,10 @@ namespace TransponderReceiverUser.Test.Unit
         }
 
         // Test: Beregning af hastighed
-        [Test]
-        public void CalculateSpeed(AirplaneData Airplane, AirplaneData AirplaneUpdated)
-        {
+        //[Test]
+        //public void CalculateSpeed(AirplaneData Airplane, AirplaneData AirplaneUpdated)
+        //{
 
-        }
+        //}
     }
 }
