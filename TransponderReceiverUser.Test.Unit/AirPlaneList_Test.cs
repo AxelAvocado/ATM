@@ -32,5 +32,19 @@ namespace TransponderReceiverUser.Test.Unit
 
             Assert.That(apl.GetList(), Is.EqualTo(lapd));  
         }
+
+        // Tester remove
+        [Test]
+        public void RemovingObject_test()
+        {
+
+            var lapd = new List<AirplaneData>();
+            var apd = new AirplaneData("QUAF37;200;200;200;20191027221805363");
+
+            UUT.AirplaneDataList.Add(apd);
+            lapd.Add(apd);
+
+            Assert.That(UUT.GetList(), Is.EqualTo(lapd));
+        }
     }
 }
