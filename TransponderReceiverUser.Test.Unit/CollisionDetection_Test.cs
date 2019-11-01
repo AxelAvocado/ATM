@@ -55,7 +55,7 @@ namespace TransponderReceiverUser.Test.Unit
         {
             List<AirplaneData> airList = new List<AirplaneData>();
             AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
-            AirplaneData a1 = new AirplaneData("UQA937;80000;80000;10000;20191027221809363");
+            AirplaneData a1 = new AirplaneData("UQA937;20000;20000;20000;20191027221809363");
             airList.Add(a);
             airList.Add(a1);
 
