@@ -40,7 +40,7 @@ namespace TransponderReceiverUser.Test.Unit
             AirplaneData ap = new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
             AirplaneData apUpdated = new AirplaneData("QUA537;21500;20000;20000;20191027221819363");
 
-            _uut.Airplanes.Add(ap);
+            _uut.AirplanesUpdated.Add(ap);
             apl.AirplaneDataList.Add(apUpdated);
 
             _uut.UpdatePlaneData(new object {}, apl);
