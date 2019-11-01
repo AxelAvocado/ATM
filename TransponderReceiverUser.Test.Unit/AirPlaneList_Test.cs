@@ -10,41 +10,50 @@ namespace TransponderReceiverUser.Test.Unit
     public class AirPlaneList_Test
     {
         //laver unittest til AirPlaneList
-        private AirplanesList UUT;
+        private AirplanesList _uut;
 
         [SetUp]
         public void Setup()
         {
-            UUT = new AirplanesList();
+            _uut = new AirplanesList();
         }
 
         [TestCase("QUA537;20000;20000;20000;20191027221809363")]
         [TestCase("QU5637;200000;200000;200000;20191027221809363")]
         [TestCase("QA537;2000;2000;2000;20191027221809365")]
         [TestCase("QUAF37;200;200;200;20191027221805363")]
-        public void GetList_test(string e)
+        public void GetList_test(string planeData)
         {
-            var apd = new AirplaneData(e);
-            var apl = new AirplanesList();
-            apl.AddToList(apd);
-            var lapd = new List<AirplaneData>();
-            lapd.Add(apd);
+            // Setup test data
+            var apd = new AirplaneData(planeData);
 
-            Assert.That(apl.GetList(), Is.EqualTo(lapd));  
+            var listPlaneData = new List<AirplaneData>();
+            listPlaneData.Add(apd);
+
+            // Act: Add apd object to uut.list
+            _uut.AddToList(apd);
+            
+            // Assert that lists are the same
+            Assert.That(_uut.GetList(), Is.EqualTo(listPlaneData));  
         }
 
         // Tester remove
         [Test]
         public void RemovingObject_test()
         {
+            AirplaneData planeData = new AirplaneData("QUAF37;200;200;200;20191027221805363");
 
-            var lapd = new List<AirplaneData>();
-            var apd = new AirplaneData("QUAF37;200;200;200;20191027221805363");
+            // Setup data
+            _uut.AirplaneDataList.Add(planeData);
 
-            UUT.AirplaneDataList.Add(apd);
-            lapd.Add(apd);
+            var listPlaneData = new List<AirplaneData>();
+            listPlaneData.Add(planeData);
 
-            Assert.That(UUT.GetList(), Is.EqualTo(lapd));
+            // Act: Add apd object to uut.list
+            _uut.AddToList(planeData);
+
+            // Assert that lists are the same
+            Assert.That(_uut.GetList(), Is.EqualTo(listPlaneData));
         }
     }
 }
