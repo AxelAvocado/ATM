@@ -10,11 +10,11 @@ namespace TransponderReceiverUser
 {
     public class CollisionDetection
     {
-        private int DistY;
-        private int DistX;
-        private int DistH ;
-        private long TimeDiff;
-        private string path;
+        public int DistY { get; set; }
+        public int DistX { get; set; }
+        public int DistH { get; set; }
+        public long TimeDiff { get; set; }
+        public string path { get; set; }
 
         public CollisionDetection(ITransponderReceiverClient transponderReceiverClient)
         {
@@ -25,13 +25,6 @@ namespace TransponderReceiverUser
         }
         
         public List<AirplaneData> transponderReceiverFactories { get; set; }
-        //public void DetectCollision(List<AirplaneData> r)
-        //{
-        //    transponderReceiverFactories = r;
-        //    //get the desktop path
-        //    path = "C:/Users/Abdallah Ajjawi/Desktop/detection.txt";
-        //    CalcDist(transponderReceiverFactories);
-        //}
 
         public void CalcDist(object sender, AirplanesList e)
         {
@@ -59,8 +52,8 @@ namespace TransponderReceiverUser
             {
                 for (int i = j; i < TRF.Length; i++)
                 {
-                    try
-                    {
+                    
+                    
                         TimeDiff = (long)((TimeSpan)(TRF[j].Time - TRF[i].Time)).TotalSeconds;
                         DistH = TRF[j].Z - TRF[i].Z;
                         DistY = TRF[j].Y - TRF[i].Y;
@@ -79,14 +72,8 @@ namespace TransponderReceiverUser
                                 Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                             }
                         }
-                    }
-                    catch
-                    {
-                        using (StreamWriter tw = File.AppendText(path))
-                        {
-                            tw.WriteLine($"Detection is over");
-                        }
-                    }
+                    
+                    
                 }
 
             }
