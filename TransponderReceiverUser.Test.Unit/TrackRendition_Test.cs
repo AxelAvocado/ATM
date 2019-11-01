@@ -9,21 +9,6 @@ namespace TransponderReceiverUser.Test.Unit
 {
     class TrackRendition_Test
     {
-        //private TrackRendition _uut;
-        //private readonly 
-
-        //[SetUp]
-        //public void Setup()
-        //{
-
-        //    _uut = new TrackRendition(Printer);
-        //}
-
-        //public void UpdatesList_DifferentArguments_PrintPlanesIsCorrect(AirplaneData compadre)
-        //{
-        //    Prin
-        //    Assert.That(_uut.PrintPlanes, Is.EqualTo(compadre));
-        //}
         private TrackRendition _uut;
         private ICalculateAirplaneData Printer;
 

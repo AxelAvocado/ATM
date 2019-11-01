@@ -18,6 +18,21 @@ namespace TransponderReceiverUser.Test.Unit
             UUT=new AirplanesList();
         }
 
+        [TestCase("QUA537;20000;20000;20000;20191027221809363")]
+        [TestCase("QU5637;200000;200000;200000;20191027221809363")]
+        [TestCase("QA537;2000;2000;2000;20191027221809365")]
+        [TestCase("QUAF37;200;200;200;20191027221805363")]
+        public void GetList_test(string e)
+        {
+            var apd = new AirplaneData(e);
+            var apl = new AirplanesList();
+            apl.AddToList(apd);
+            var lapd = new List<AirplaneData>();
+            lapd.Add(apd);
+
+            Assert.That(apl.GetList(), Is.EqualTo(lapd));  
+        }
+
 
         //tester AddToList fra AirPlaneList med at give den input parameter og se hvorvidt det er blevet indsat 
 
