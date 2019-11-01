@@ -11,14 +11,14 @@ namespace TransponderReceiverUser.Test.Unit
 {
     public class CollisionDetection_Test
     {
-        private ITransponderReceiverClient transponder;
+        private ITransponderReceiverClient Transponder;
         private CollisionDetection UUT;
 
         [SetUp]
         public void setup()
         {
-            transponder = Substitute.For<ITransponderReceiverClient>();
-            UUT = new CollisionDetection(transponder);
+            Transponder = Substitute.For<ITransponderReceiverClient>();
+            UUT = new CollisionDetection(Transponder);
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace TransponderReceiverUser.Test.Unit
             airList.Add(a);
             airList.Add(a1);
 
-            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
+            Transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
             Assert.That(UUT.TimeDiff, Is.EqualTo(60));
         }
 
@@ -45,7 +45,7 @@ namespace TransponderReceiverUser.Test.Unit
             airList.Add(a);
             airList.Add(a1);
 
-            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
+            Transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
             Assert.That(UUT.DistX, Is.EqualTo(1500));
         }
 
