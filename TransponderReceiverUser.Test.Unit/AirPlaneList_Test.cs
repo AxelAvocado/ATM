@@ -28,8 +28,10 @@ namespace TransponderReceiverUser.Test.Unit
             IairPlaneData.Tag.Returns("Fly1");
 
             UUT.AddToList(IairPlaneData);
+            
+            List<AirplaneData> PlaneList= UUT.GetList();
 
-            Assert.That(UUT.AirplaneDataList, Is.EqualTo("fly1"));
+            Assert.That(PlaneList[0].Tag, Is.EqualTo("fly1"));
 
         }
 
