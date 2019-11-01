@@ -10,11 +10,11 @@ namespace TransponderReceiverUser
 {
     public class CollisionDetection
     {
-        private int DistY;
-        private int DistX;
-        private int DistH ;
-        private long TimeDiff;
-        private string path;
+        public int DistY { get; set; }
+        public int DistX { get; set; }
+        public int DistH { get; set; }
+        public long TimeDiff { get; set; }
+        public string path { get; set; }
 
         public CollisionDetection(ITransponderReceiverClient transponderReceiverClient)
         {
