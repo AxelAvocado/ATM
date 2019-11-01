@@ -22,10 +22,21 @@ namespace TransponderReceiverUser.Test.Unit
         }
 
         // Test: Beregning af hastighed
-        //[Test]
-        //public void CalculateSpeed(AirplaneData Airplane, AirplaneData AirplaneUpdated)
-        //{
+        [Test]
+        public void CalculateSpeedTest()
+        {
+            // Setup test data
+            // 500 m på 10 sekund er 180 km/t
 
-        //}
+            AirplaneData plane = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
+            AirplaneData planeUpdated = new AirplaneData("QUA537;20500;20000;20000;20191027221819363");
+            double expectedResult = 180;
+
+            // Act: Beregner hastighed mellem to logs af samme fly
+            double result = _uut.CalculateSpeed(plane, planeUpdated);
+
+            // Assert at resultatet er lig 30 km/t
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
     }
 }
