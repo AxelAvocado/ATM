@@ -15,7 +15,7 @@ namespace TransponderReceiverUser.Test.Unit
         [SetUp]
         public void Setup()
         {
-            UUT=new AirplanesList();
+            UUT = new AirplanesList();
         }
 
         [TestCase("QUA537;20000;20000;20000;20191027221809363")]
@@ -32,25 +32,5 @@ namespace TransponderReceiverUser.Test.Unit
 
             Assert.That(apl.GetList(), Is.EqualTo(lapd));  
         }
-
-
-        //tester AddToList fra AirPlaneList med at give den input parameter og se hvorvidt det er blevet indsat 
-
-        //[Test]
-        //public void AddToListTest()
-        //{
-        //    AirplaneData IairPlaneData = Substitute.For<AirplaneData>();
-        //    IairPlaneData.Tag.Returns("Fly1");
-
-        //    UUT.AddToList(IairPlaneData);
-            
-        //    List<AirplaneData> PlaneList= UUT.GetList();
-
-        //    Assert.That(PlaneList[0].Tag, Is.EqualTo("fly1"));
-
-        //}
-
-
-
     }
 }
