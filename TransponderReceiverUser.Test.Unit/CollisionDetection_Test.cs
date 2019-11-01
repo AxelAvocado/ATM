@@ -13,13 +13,12 @@ namespace TransponderReceiverUser.Test.Unit
     {
         private ITransponderReceiverClient transponder;
         private CollisionDetection UUT;
-        private int EventsPasser = 0;
 
         [SetUp]
         public void setup()
         {
             transponder = Substitute.For<ITransponderReceiverClient>();
-            UUT=new CollisionDetection(transponder);
+            UUT = new CollisionDetection(transponder);
         }
         //test af collision detection property X
         [Test]
