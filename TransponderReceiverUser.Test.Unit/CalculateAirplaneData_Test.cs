@@ -21,6 +21,19 @@ namespace TransponderReceiverUser.Test.Unit
             _uut = new CalculateAirplaneData(_fakeTransponderReceiverClient);
         }
 
+        // Test: Opdatering af planedata med sammenligning af to lister
+        [Test]
+        public void UpdatePlaneDataEventRecepientTest()
+        {
+            AirplanesList apl = new AirplanesList();
+            AirplaneData ap = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
+
+            apl.AirplaneDataList.Add(ap);
+
+            _fakeTransponderReceiverClient.AirplaneListReady += Raise.EventWith(apl);
+            Assert.That(_uut.AirplanesUpdated.ElementAt(0).Tag, Is.EqualTo("QUA537"));
+        }
+
         // Test: Beregning af hastighed
         [Test]
         public void CalculateSpeedTest()
