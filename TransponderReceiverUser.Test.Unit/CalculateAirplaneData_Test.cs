@@ -26,7 +26,6 @@ namespace TransponderReceiverUser.Test.Unit
         public void CalculateSpeedTest()
         {
             // Setup test data
-
             // 500 m på 10 sekund er 180 km/t
 
             AirplaneData plane = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
