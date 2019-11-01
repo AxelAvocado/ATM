@@ -16,7 +16,7 @@ namespace TransponderReceiverApplication
         Double Speed { get; set; }
         Double Direction { get; set; }
 
-    }
+    }   
     public class AirplaneData : EventArgs, IAirPlaneData
     {
         public string Tag { get; set; }
