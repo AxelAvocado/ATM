@@ -25,13 +25,6 @@ namespace TransponderReceiverUser
         }
         
         public List<AirplaneData> transponderReceiverFactories { get; set; }
-        //public void DetectCollision(List<AirplaneData> r)
-        //{
-        //    transponderReceiverFactories = r;
-        //    //get the desktop path
-        //    path = "C:/Users/Abdallah Ajjawi/Desktop/detection.txt";
-        //    CalcDist(transponderReceiverFactories);
-        //}
 
         public void CalcDist(object sender, AirplanesList e)
         {
