@@ -50,7 +50,7 @@ namespace TransponderReceiverUser.Test.Unit
         }
 
         [Test]
-        ////test af collision detection med airplanelist object som fuldfører programmet på grund af tidsforskel
+        ////test af collision detection med airplanelist object som ikke fuldfører programmet på grund af tidsforskel
         public void calcDistObjectTime_test()
         {
             List<AirplaneData> airList = new List<AirplaneData>();
