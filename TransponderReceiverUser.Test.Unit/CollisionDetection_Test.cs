@@ -1,6 +1,7 @@
 ﻿using System;
 using System;
 using System.Collections.Generic;
+using Castle.Core.Smtp;
 using NSubstitute;
 using NUnit.Framework;
 using TransponderReceiver;
@@ -49,6 +50,19 @@ namespace TransponderReceiverUser.Test.Unit
             Assert.That(UUT.TimeDiff, Is.EqualTo(0));
         }
 
+        //test af collision detection med airplanelist object
+        [Test]
+        public void calcDistObject_test()
+        {
+            List<AirplaneData> airlList=new List<AirplaneData>();
+            AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
+            AirplaneData a1 = new AirplaneData("UQA937;20000;20000;20000;20191027221809363");
+            airlList.Add(a);
+            airlList.Add(a1);
+
+            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList {AirplaneDataList = airlList });
+            Assert.That(UUT.DistX, Is.EqualTo(0));
+        }
 
     }
 }
