@@ -58,18 +58,18 @@ namespace TransponderReceiverUser
                         DistH = TRF[j].Z - TRF[i].Z;
                         DistY = TRF[j].Y - TRF[i].Y;
                         DistX = TRF[j].X - TRF[i].X;
-                        //Console.WriteLine($"højde forskellen mellem flyene er {TRF[i].Z} og {TRF[j].Z} er {DistH} {TRF[i].Tag} og {TRF[j].Tag}");
+                        Console.WriteLine($"X forskellen mellem flyene er {TRF[i].X} og {TRF[j].X} er {DistX} {TRF[i].Tag} og {TRF[j].Tag}");
                         if ((-300 < DistH && DistH < 300) && (-120 < TimeDiff && TimeDiff < 120))
                         {
                             //Console.WriteLine($"{TRF[i].X} og {TRF[j].X} distance er {DistX} på {TRF[i].Tag} og {TRF[j].Tag}");
                             if (TRF[j].Tag != TRF[i].Tag && (-5000 < DistX && DistX < 5000) && (-5000 < DistY && DistY < 5000))
                             {
+                                Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                                 using (StreamWriter tw = File.AppendText(path))
                                 {
                                     tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                                 }
 
-                                Console.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
                             }
                         }
                     

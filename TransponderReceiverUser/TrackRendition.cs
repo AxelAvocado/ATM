@@ -11,16 +11,25 @@ namespace TransponderReceiverUser
     {
         public TrackRendition(ICalculateAirplaneData CalculateAirplaneData)
         {
-            CalculateAirplaneData.UpdatedAirplaneListReady += PrintPlanes;
+            CalculateAirplaneData.UpdatedAirplaneListReady += EventHandler;
+    }
+        public void EventHandler(object sender, AirplaneData e)
+        {
+            PrintPlanes(e);
         }
-        private void PrintPlanes(object sender, AirplaneData e)
+
+        public AirplaneData PrintPlanes(AirplaneData a)
         {
             Console.WriteLine(Environment.NewLine + "----------------------------------------------------------------------------------------------" + Environment.NewLine);
 
-            Console.WriteLine($"Transponderdata {e.Tag} {e.Time}");
-            Console.WriteLine($"Calculated new data for {e.Tag}: Speed = {e.Speed} km/t, Direction = {e.Direction} degrees");
+            Console.WriteLine($"Transponderdata {a.Tag} {a.Time}");
+            Console.WriteLine($"Calculated new data for {a.Tag}: Speed = {a.Speed} km/t, Direction = {a.Direction} degrees");
 
             Console.WriteLine(Environment.NewLine + "----------------------------------------------------------------------------------------------" + Environment.NewLine);
+
+            return a;
+
         }
+        
     }
 }

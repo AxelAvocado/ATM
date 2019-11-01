@@ -49,17 +49,31 @@ namespace TransponderReceiverUser.Test.Unit
             Assert.That(UUT.TimeDiff, Is.EqualTo(0));
         }
 
-        //test af collision detection med airplanelist object
         [Test]
-        public void calcDistObject_test()
+        ////test af collision detection med airplanelist object som ikke fuldfører programmet på grund af tidsforskel
+        public void calcDistObjectTime_test()
         {
-            List<AirplaneData> airlList=new List<AirplaneData>();
+            List<AirplaneData> airList = new List<AirplaneData>();
+            AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
+            AirplaneData a1 = new AirplaneData("UQA937;10000;20000;20000;30191027221809363");
+            airList.Add(a);
+            airList.Add(a1);
+
+            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
+            Assert.That(UUT.TimeDiff, Is.EqualTo(0));
+        }
+
+        //test af collision detection med airplanelist object som fuldfører programmet
+        [Test]
+        public void calcDistObjectTrue_test()
+        {
+            List<AirplaneData> airList = new List<AirplaneData>();
             AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
             AirplaneData a1 = new AirplaneData("UQA937;20000;20000;20000;20191027221809363");
-            airlList.Add(a);
-            airlList.Add(a1);
+            airList.Add(a);
+            airList.Add(a1);
 
-            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList {AirplaneDataList = airlList });
+            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
             Assert.That(UUT.DistX, Is.EqualTo(0));
         }
 
