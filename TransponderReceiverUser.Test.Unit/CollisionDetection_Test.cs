@@ -56,12 +56,12 @@ namespace TransponderReceiverUser.Test.Unit
         {
             List<AirplaneData> airlList=new List<AirplaneData>();
             AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
-            AirplaneData a1 = new AirplaneData("UQA937;16000;15000;19999;20191027221809363");
+            AirplaneData a1 = new AirplaneData("UQA937;20000;20000;20000;20191027221809363");
             airlList.Add(a);
             airlList.Add(a1);
 
             transponder.AirplaneListReady += Raise.EventWith(new AirplanesList {AirplaneDataList = airlList });
-            Assert.That(UUT.DistX, Is.EqualTo(-4000));
+            Assert.That(UUT.DistX, Is.EqualTo(0));
         }
 
     }
