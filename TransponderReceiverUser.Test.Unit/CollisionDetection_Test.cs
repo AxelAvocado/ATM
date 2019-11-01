@@ -20,21 +20,21 @@ namespace TransponderReceiverUser.Test.Unit
             transponder = Substitute.For<ITransponderReceiverClient>();
             UUT=new CollisionDetection(transponder);
         }
-        //test af collision detection
+        //test af collision detection property X
         [Test]
         public void calcDistx_test()
         {
-            transponder.AirplaneListReady +=Raise.EventWith(new AirplanesList {});
+            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { });
             Assert.That(UUT.DistX, Is.EqualTo(0));
         }
-
+        //test af collision detection property y
         [Test]
         public void calcDisty_test()
         {
             transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { });
             Assert.That(UUT.DistY, Is.EqualTo(0));
         }
-
+        //test af collision detection property H
         [Test]
         public void calcDistH_test()
         {
