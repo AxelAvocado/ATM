@@ -6,18 +6,8 @@ using System.Collections;
 
 namespace TransponderReceiverApplication
 {
-    public class AirplaneData : EventArgs, IEnumerable<AirplaneData>
+    public class AirplaneData : EventArgs
     {
-        private List<AirplaneData> AirplaneDatas;
-        public IEnumerator<AirplaneData> GetEnumerator()
-        {
-            return AirplaneDatas.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return AirplaneDatas.GetEnumerator();
-        }
         public string Tag { get; set; }
         public int X { get; set; }
         public int Y { get; set; }

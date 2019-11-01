@@ -42,8 +42,6 @@ namespace TransponderReceiverUser
                         AirplaneUpdated.Speed = CalculateSpeed(Airplane, AirplaneUpdated);
                         AirplaneUpdated.Direction = CalculateDirection(Airplane, AirplaneUpdated);
                         OnAirplaneListUpdatedEvent(AirplaneUpdated);
-                        //Console.WriteLine($"{Airplane.X} og {AirplaneUpdated.X}");
-                        //Console.WriteLine($"Calculated new data for {AirplaneUpdated.Tag}: Speed = {AirplaneUpdated.Speed} km/t, Direction = {AirplaneUpdated.Direction} degrees");
                     }
                 }
             };

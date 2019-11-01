@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using TransponderReceiver;
@@ -32,6 +33,42 @@ namespace TransponderReceiverUser.Test.Unit
                 += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
 
             // Assert something here or use an NSubstitute Received
+        }
+
+        // Test: Tjek at tilføjet Airplane er InAirSpace
+        [TestCase(10000, 10000)]
+        [TestCase(23000, 12000)]
+        [TestCase(65000, 50000)]
+        [TestCase(90000, 90000)]
+        public void AirplaneInAirSpace(int x, int y)
+        {
+            // Setup test data
+            Boolean expectedResult = true;
+
+            // Act: Tester at flyet er i airspacet
+            Boolean result = _uut.InAirSpace(x, y);
+
+            // Assert at functionen returnere true
+            Assert.That(result, Is.EqualTo(expectedResult));
+
+        }
+
+        // Test: Tjek at tilføjet Airplane ikke er InAirSpace
+        [TestCase(9999, 9999)]
+        [TestCase(550, 950)]
+        [TestCase(105000, 12300)]
+        [TestCase(90001, 90001)]
+        public void AirplaneNotInAirSpace(int x, int y)
+        {
+            // Setup test data
+            Boolean expectedResult = false;
+
+            // Act: Tester at flyet er i airspacet
+            Boolean result = _uut.InAirSpace(x, y);
+
+            // Assert at functionen returnere true
+            Assert.That(result, Is.EqualTo(expectedResult));
+
         }
     }
 }

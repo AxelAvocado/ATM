@@ -20,7 +20,7 @@ namespace TransponderReceiverUser
         {
             transponderReceiverClient.AirplaneListReady += CalcDist;
             //path = "C:/Users/Sakariye/Skrivebord/detection.txt"; 
-            path = "C:/Users/Bruger/Desktop/detection.txt";
+            path = "../detection.txt";
              transponderReceiverFactories =new List<AirplaneData>();
         }
         
@@ -36,11 +36,6 @@ namespace TransponderReceiverUser
         public void CalcDist(object sender, AirplanesList e)
         {
             transponderReceiverFactories = e.AirplaneDataList;
-
-            foreach(var t in transponderReceiverFactories)
-            {
-                Console.WriteLine($"{t.Tag}");
-            }
 
             //Først tjek hvis filen eksisterer hvis den ikke eksisterer så opret
             if (!File.Exists(path))
@@ -71,12 +66,11 @@ namespace TransponderReceiverUser
                         DistY = TRF[j].Y - TRF[i].Y;
                         DistX = TRF[j].X - TRF[i].X;
                         //Console.WriteLine($"højde forskellen mellem flyene er {TRF[i].Z} og {TRF[j].Z} er {DistH} {TRF[i].Tag} og {TRF[j].Tag}");
-                        if ((-1000 < DistH && DistH < 1000) && (-120 < TimeDiff && TimeDiff < 120))
+                        if ((-300 < DistH && DistH < 300) && (-120 < TimeDiff && TimeDiff < 120))
                         {
                             //Console.WriteLine($"{TRF[i].X} og {TRF[j].X} distance er {DistX} på {TRF[i].Tag} og {TRF[j].Tag}");
-                            if (TRF[j].Tag != TRF[i].Tag && (-10000 < DistX && DistX < 10000) && (-10000 < DistY && DistY < 10000))
+                            if (TRF[j].Tag != TRF[i].Tag && (-5000 < DistX && DistX < 5000) && (-5000 < DistY && DistY < 5000))
                             {
-                                Console.WriteLine("vi når aldrig her");
                                 using (StreamWriter tw = File.AppendText(path))
                                 {
                                     tw.WriteLine($"{TRF[j].Time}, {TRF[j].Tag}, {TRF[i].Tag} is going to crash");
