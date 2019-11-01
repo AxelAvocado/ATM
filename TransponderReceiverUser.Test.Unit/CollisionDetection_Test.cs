@@ -41,6 +41,13 @@ namespace TransponderReceiverUser.Test.Unit
             transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { });
             Assert.That(UUT.DistH, Is.EqualTo(0));
         }
+        //Test af collision detection property timediff
+        [Test]
+        public void calcDistTime_test()
+        {
+            transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { });
+            Assert.That(UUT.TimeDiff, Is.EqualTo(0));
+        }
 
 
     }
