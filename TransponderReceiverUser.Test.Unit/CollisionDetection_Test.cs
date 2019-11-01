@@ -53,11 +53,6 @@ namespace TransponderReceiverUser.Test.Unit
         [Test]
         public void calcDistObject_test()
         {
-            AirplaneData a2 = Substitute.For<AirplaneData>();
-            AirplaneData a3 = Substitute.For<AirplaneData>();
-            a2.Tag.Returns("fl1");
-            a3.Tag.Returns("fl2");
-
             List<AirplaneData> airList = new List<AirplaneData>();
             AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221809363");
             AirplaneData a1 = new AirplaneData("UQA937;80000;80000;10000;20191027221809363");
