@@ -34,6 +34,20 @@ namespace TransponderReceiverUser.Test.Unit
             Transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
             Assert.That(UUT.TimeDiff, Is.EqualTo(60));
         }
+        [Test]
+        ////test af collision detection med airplanelist object som ikke fuldfører programmet på grund af Y koordinat
+        public void CalcDistObjectY_test()
+        {
+            List<AirplaneData> airList = new List<AirplaneData>();
+            AirplaneData a = new AirplaneData("QUA537;20000;20000;20000;20191027221909363");
+            AirplaneData a1 = new AirplaneData("UQA937;20000;14000;20000;20191027221809363");
+            airList.Add(a);
+            airList.Add(a1);
+
+            Transponder.AirplaneListReady += Raise.EventWith(new AirplanesList { AirplaneDataList = airList });
+            Assert.That(UUT.DistY, Is.EqualTo(6000));
+        }
+
 
         //test af collision detection med airplanelist object som fuldfører programmet
         [Test]
