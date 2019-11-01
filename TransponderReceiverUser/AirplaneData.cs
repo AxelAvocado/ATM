@@ -6,7 +6,18 @@ using System.Collections;
 
 namespace TransponderReceiverApplication
 {
-    public class AirplaneData : EventArgs
+    public interface IAirPlaneData
+    {
+        string Tag { get; set; }
+        int X { get; set; }
+        int Y { get; set; }
+        int Z { get; set; }
+        DateTime Time { get; set; }
+        Double Speed { get; set; }
+        Double Direction { get; set; }
+
+    }
+    public class AirplaneData : EventArgs, IAirPlaneData
     {
         public string Tag { get; set; }
         public int X { get; set; }
