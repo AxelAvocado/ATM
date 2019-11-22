@@ -7,8 +7,17 @@ using TransponderReceiverApplication;
 
 namespace TransponderReceiverUser
 {
-    public class CalculateAirplaneData
+    public interface ICalculateAirplaneData
     {
+        event EventHandler<AirplaneData> UpdatedAirplaneListReady;
+    }
+    public class CalculateAirplaneData : ICalculateAirplaneData
+    {
+        public event EventHandler<AirplaneData> UpdatedAirplaneListReady;
+        protected virtual void OnAirplaneListUpdatedEvent(AirplaneData e )
+        {
+            UpdatedAirplaneListReady?.Invoke(this, e);
+        }
         public CalculateAirplaneData(ITransponderReceiverClient transponderReceiverClient)
         {
             transponderReceiverClient.AirplaneListReady += UpdatePlaneData;
@@ -20,7 +29,7 @@ namespace TransponderReceiverUser
         public List<AirplaneData> AirplanesUpdated { get; set; }
 
         public void UpdatePlaneData(object sender, AirplanesList e)
-        { 
+        {
             Airplanes = new List<AirplaneData>(AirplanesUpdated);
             AirplanesUpdated = new List<AirplaneData>(e.AirplaneDataList);
 
@@ -32,8 +41,7 @@ namespace TransponderReceiverUser
                     {
                         AirplaneUpdated.Speed = CalculateSpeed(Airplane, AirplaneUpdated);
                         AirplaneUpdated.Direction = CalculateDirection(Airplane, AirplaneUpdated);
-                        Console.WriteLine($"{Airplane.X} og {AirplaneUpdated.X}");
-                        Console.WriteLine($"Calculated new data for {AirplaneUpdated.Tag}: Speed = {AirplaneUpdated.Speed} km/t, Direction = {AirplaneUpdated.Direction} degrees");
+                        OnAirplaneListUpdatedEvent(AirplaneUpdated);
                     }
                 }
             };
@@ -41,7 +49,7 @@ namespace TransponderReceiverUser
 
         public double CalculateSpeed(AirplaneData Airplane, AirplaneData AirplaneUpdated)
         {
-            double speed = 0.0;
+            double speed;
 
             var x1 = Airplane.X;
             var y1 = Airplane.Y;
@@ -52,8 +60,8 @@ namespace TransponderReceiverUser
             var z2 = AirplaneUpdated.Z;
 
             var dx = x2 - x1;
-            var dy = x2 - x1;
-            var dz = x2 - x1;
+            var dy = y2 - y1;
+            var dz = z2 - z1;
 
             var dist = Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2) + Math.Pow(dz, 2));
             var timeElapsed = AirplaneUpdated.Time - Airplane.Time;
@@ -65,7 +73,7 @@ namespace TransponderReceiverUser
 
         public double CalculateDirection(AirplaneData Airplane, AirplaneData AirplaneUpdated)
         {
-            double direction = 0.0;
+            double direction;
 
             var x1 = Airplane.X;
             var y1 = Airplane.Y;
@@ -80,19 +88,17 @@ namespace TransponderReceiverUser
             }
             else
             {
-                var x = (Math.Atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
-                var temp = Math.Round(x - 90, 2);
+                var Theta = Math.Atan2(y1 - y2, x1 - x2);
+                Theta += Math.PI / 2;
 
-                if (temp > 0)
+                direction = Theta * (180 / Math.PI);
+
+                if (direction < 0)
                 {
-                    direction = 360 - temp;
-                    return direction;
+                    direction += 360;
                 }
-                else
-                {
-                    direction = Math.Abs(temp);
-                    return direction;
-                }
+
+                return direction;
             }
         }
 
